@@ -6,9 +6,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/miacio/mysqltls/dbtp"
 	"github.com/miacio/mysqltls/example"
 	"github.com/miacio/mysqltls/tls"
+	"github.com/miacio/mysqltls/types"
 )
 
 func PointString(val string) *string {
@@ -66,7 +66,7 @@ func TestBatchInsert(t *testing.T) {
 	}
 	params := make([]tls.TableInterface, 0)
 	now := time.Now()
-	bl := dbtp.IBool(true)
+	bl := types.IBool(true)
 	params = append(params, example.UserInfo{
 		Name:       PointString("这是七名字"),
 		Password:   PointString("MD5('123456')"),
@@ -102,7 +102,7 @@ func TestSelect(t *testing.T) {
 		t.Fatal(err)
 	}
 	var result []example.UserInfo
-	err = db.Engine(example.UserInfo{}).Where().And("name like concat('%', ?, '%')", "这是").AndIn("id in (?)", []int{2, 4, 5}).And("sex = ?", dbtp.IBool(false)).Find(&result)
+	err = db.Engine(example.UserInfo{}).Where().And("name like concat('%', ?, '%')", "这是").AndIn("id in (?)", []int{2, 4, 5}).And("sex = ?", types.IBool(false)).Find(&result)
 	if err != nil {
 		t.Fatal(err)
 	}

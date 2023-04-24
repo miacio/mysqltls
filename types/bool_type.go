@@ -1,4 +1,4 @@
-package dbtp
+package types
 
 import (
 	"database/sql/driver"
